@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
+    <title>Library</title>
+    <h2>My Books</h2>
+    <span class="material-icons" id="newBook">add_circle_outline</span> 
+  </head>
+  <body>
+    <form name="myForm" id ='modal'>
+      <div class="title">
+        <label for="title" class="block">Title:</label>
+        <input type="text" id="text-title" name="title" required>
+      </div>
+      <div class="author"></div>
+        <label for="author" class="block">Author:</label>
+        <input type="text" id="text-author" name="author" required>
+      </div>
+      <div class="read">
+        <label for="read">Read</label>
+        <input type="checkbox" id="text-read">
+      </div>
+       <div class="rating">
+        <label for="rating" class="block">Rate the book between 1 and 10.</label>
+        <input type="text" id="text-rating" name="rating" required>
+        <p id="numberValidation"></p>
+        </div>
+        <input id="submit" type="submit" value="Submit" >
+    </form>
+    
+    <h3>Book List:</h3>
+    <div class="card-content">
+        <div class="card-header">Title:</div>
+        <div class="card-main">
+            <span class="material-icons" id="book">book</span>       
+        <div class="main-description">Author:</div>
+        <span class="material-icons" id="delete">delete</span> 
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
