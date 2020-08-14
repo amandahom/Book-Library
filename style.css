@@ -1,24 +1,33 @@
 body {
-  font-family: "Libre Franklin", sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
+  background-color: #e9f8fb;
 }
 
-.card-content {
-  width: 200px;
-  border: 1px solid #ef9a9a;
-  border-radius: 4px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-header {
-  color: #d32f2f;
+.book-list {
   text-align: center;
-  font-size: 12px;
+  font-size: 24px;
+}
+
+#card-content {
+  padding: 10vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5vh;
+  justify-content: center !important;
+  margin: 20px 50px;
+  max-width: 75vw;
+  margin-top: -5vh;
+}
+
+.bookTitle {
+  color: #843cb9;
+  text-align: center;
+  font-size: 14px;
   font-weight: 600;
-  border-bottom: 1px solid #ef9a9a;
-  background-color: #ffebee;
+  border-bottom: 2px solid#843CB9;
+  background-color: #e7d1f7;
   padding: 10px 10px;
+  height: 40px;
 }
 
 .card-main {
@@ -26,30 +35,39 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px 0;
+  padding: 10px 0;
+  background-color: #fff;
+  height: 180px;
 }
 
 #book {
-  font-size: 36px;
-  color: #d32f2f;
-  margin-bottom: 5px;
+  margin: 10px 20px;
+  font-size: 36px !important;
+  color: #4d4343;
+}
+
+.book {
+  border: 3px solid #843cb9;
+  border-radius: 4px;
 }
 
 #delete {
-  font-size: 36px;
   margin-left: 130px;
   cursor: pointer;
+  font-size: 36px !important;
+  color: #4d4343;
 }
 
 #newBook {
-  font-size: 50px;
+  font-size: 60px;
   cursor: pointer;
 }
 
-.main-description {
-  color: #d32f2f;
-  font-size: 12px;
+.description {
+  color: #843cb9;
+  font-size: 14px;
   text-align: center;
+  padding: 4px 10px;
 }
 
 #modal label {
@@ -59,38 +77,112 @@ body {
   margin-bottom: 10px;
 }
 
-#modal input[type="text"] {
-  padding: 8px 8px;
-  font-size: 13px;
+#modal input[type='text'] {
+  padding: 12px 14px;
+  font-size: 1em;
+  font-weight: 400px;
+  letter-spacing: 0.1em;
   width: 300px;
-  border-radius: 4px;
-  border: 1px solid #e7c5ff;
+  border-radius: 2px;
+  border: 2px solid #c54d4d;
+  background-color: #413131;
+  color: #fff;
 }
 
-#modal div {
-  margin-top: 10px;
+#modal input[type='text']::placeholder {
+  color: white;
 }
 
 #modal {
-  background-color: #e7c5ff;
-  padding: 30px 20px;
+  background-color: #413131;
+  padding: 0px 0px 40px 0px;
+  margin: 0px 0px 20px 00px;
   border-radius: 10px;
   width: 500px;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#modal div {
+  padding-bottom: 10px;
 }
 
 #modal #submit {
-  height: 40px;
-  margin-top: 30px;
-  padding: 10px 10px;
+  padding: 13px 14px;
   cursor: pointer;
-  font-weight: bold;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 2px;
+  border: 2px solid #c54d4d;
+  background-color: #c54d4d;
+  width: 300px;
+  color: white;
 }
 
 #modal #submit:hover {
-  color: white;
-  background-color: #e33c1b;
-  transition-duration: 0.4s;
+  border-color: #fff;
+  background-color: #413131;
+  color: #fff;
+  border: 2px solid #c54d4d;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.read select {
+  display: inline-block;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMCIgeT0iMCIgdmlld0JveD0iLTE3LjUgLTEuMyA1MC4xIDI3LjkiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5bGluZSBwb2ludHM9IiAxNi4xIDguNSA3LjYgMTcgLTAuOSA4LjUgIiBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MztzdHJva2U6I2ZmZiIvPjwvc3ZnPg==') !important;
+  background-repeat: no-repeat !important;
+  background-position: right !important;
+  background-size: 35px 29px !important;
+  border-radius: 2px;
+  border: 2px solid #c54d4d;
+  background-color: #413131;
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 1em;
+  font-weight: 400px;
+  letter-spacing: 0.02em;
+  width: 300px;
+  margin: 0;
+  padding-right: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.read select::-ms-expand {
+  display: none;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+.myForm-title {
+  color: #fff;
+  margin-bottom: 28px;
+  font-size: 30px;
+  background-color: #c54d4d;
+  width: 500px;
+  padding-top: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#modal p {
+  color: #fff;
+}
+
+#close {
+  margin-right: 0px;
+  margin-top: 0px;
+  top: 0;
 }
