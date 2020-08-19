@@ -13,13 +13,24 @@
   <body class="container">
     <div class="wrapper">
       <form name="myForm" id="modal">
+        <span class="material-icons" id="close">highlight_off</span>
         <div class="myForm-title">Add a new Book</div>
-        <!-- <span class="material-icons" id="close">highlight_off</span> -->
         <div class="title">
-          <input type="text" id="text-title" name="title" placeholder="Title" />
+          <input type="text" id="text-title" name="title" placeholder="Title" required />
         </div>
         <div class="author">
-          <input type="text" id="text-author" name="author" placeholder="Author" />
+          <input type="text" id="text-author" name="author" placeholder="Author" required />
+        </div>
+        <div class="rating">
+          <input
+            type="number"
+            id="text-rating"
+            name="rating"
+            placeholder="Rate the book between 0 and 10."
+            min="0"
+            max="10"
+            required
+          />
         </div>
         <div class="read">
           <select name="read" id="text-read">
@@ -27,9 +38,6 @@
             <option value="yes">Yes!</option>
             <option value="nope">Nope.</option>
           </select>
-        </div>
-        <div class="rating">
-          <input type="text" id="text-rating" name="rating" placeholder="Rate the book between 0 and 10." />
         </div>
         <p id="numberValidation"></p>
         <p id="requiredValidation"></p>
