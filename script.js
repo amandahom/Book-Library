@@ -147,7 +147,8 @@
   function defaultBooks() {
     let book1 = new Book('Harry Potter and the Goblet of Fire', 'J. K. Rowling', '10', true)
     let book2 = new Book('East of Eden', 'John Steinbeck', '8', false)
-    myLibrary.push(book1, book2)
+    let book3 = new Book('The Lightning Thief', 'Rick Riordan', '9', false)
+    myLibrary.push(book1, book2, book3)
   }
 
   // Document's Main Function
