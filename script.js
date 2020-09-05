@@ -1,24 +1,33 @@
-;(function() {
+; (function () {
   let myLibrary = []
   console.log(myLibrary)
 
   // Function Objects - Constructor
   function Book(title, author, rating, read) {
-    this.title = title
-    this.author = author
-    this.rating = rating
-    this.read = read
+    return {
+      title,
+      author,
+      rating,
+      read
+    }
+
+
   }
 
   // Function to add book to array
   function addBook(title, author, rating, read) {
-    let book = new Book(title, author, rating, read)
+    let book = Book(title, author, rating, read)
     myLibrary.push(book)
   }
 
   // Render Function
   function render() {
-    myLibrary.forEach(function(book) {
+
+    // Deleting everything before we render any new items. To avoid duplicates.
+    let myNode = document.getElementById('card-content')
+    myNode.innerHTML = ''
+
+    myLibrary.forEach(function (book) {
       const newBook = document.createElement('div')
       newBook.setAttribute('class', 'book')
 
@@ -69,7 +78,7 @@
   // Function to delete book from array
   function removeBook() {
     let key = document.parentElement
-    console.log(key)
+    console.log({ key })
     myLibrary.splice(key, 1)
     console.log('remove')
     render()
@@ -90,8 +99,8 @@
   function validation() {
     document.addEventListener(
       'invalid',
-      (function() {
-        return function(e) {
+      (function () {
+        return function (e) {
           e.preventDefault()
         }
       })(),
@@ -129,12 +138,16 @@
 
   // Function to display form
   function displayForm() {
+    // @TODO Ensure you clear out the items from the previous
     let modal = document.getElementById('modal')
+
     if (modal.style.display === 'none') {
-      modal.style.display = 'block'
-    } else {
-      modal.style.display = 'none'
+      document.getElementById('text-title').value = ''
+      document.getElementById('text-author').value = ''
+      document.getElementById('text-rating').value = ''
+      document.getElementById('text-read').checked = false
     }
+    modal.style.display = modal.style.display === 'none' ? 'block' : 'none'
   }
 
   //Hide form when close is clicked
@@ -145,9 +158,9 @@
 
   // Load default books
   function defaultBooks() {
-    let book1 = new Book('Harry Potter and the Goblet of Fire', 'J. K. Rowling', '10', true)
-    let book2 = new Book('East of Eden', 'John Steinbeck', '8', false)
-    let book3 = new Book('The Lightning Thief', 'Rick Riordan', '9', false)
+    let book1 = Book('Harry Potter and the Goblet of Fire', 'J. K. Rowling', '10', true)
+    let book2 = Book('East of Eden', 'John Steinbeck', '8', false)
+    let book3 = Book('The Lightning Thief', 'Rick Riordan', '9', false)
     myLibrary.push(book1, book2, book3)
   }
 
@@ -155,6 +168,13 @@
   function main() {
     let newBook = document.getElementById('newBook')
     newBook.addEventListener('click', displayForm)
+
+    let newBookForm = document.getElementById('modal')
+    newBookForm.addEventListener('submit', function (e) {
+      e.preventDefault()
+      console.log("Stop form submition...")
+    })
+
 
     let bookSubmit = document.getElementById('submit')
     bookSubmit.addEventListener('click', validation)
@@ -165,7 +185,7 @@
     defaultBooks()
     render()
   }
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     main()
   })
 })()
