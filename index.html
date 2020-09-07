@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body class="container" id="containerStyle">
+    <div class="nav">
+      <title>Library</title>
+      <h2 class="book-library">Book Library</h2>
+      <span class="material-icons" id="newBook">add_circle_outline</span>
+    </div>
+    <div class="wrapper">
+      <form name="myForm" id="modal">
+        <span class="material-icons" id="close">highlight_off</span>
+        <div class="myForm-title">Add a new Book</div>
+        <div class="title">
+          <input type="text" id="text-title" name="title" placeholder="Title" maxlength="50" required />
+        </div>
+        <div class="author">
+          <input type="text" id="text-author" name="author" placeholder="Author" required />
+        </div>
+        <div class="rating">
+          <input
+            type="number"
+            id="text-rating"
+            name="rating"
+            placeholder="Rate the book between 0 and 10"
+            min="0"
+            max="10"
+            required
+          />
+        </div>
+        <div class="read">
+          <input type="checkbox" id="text-read" name="read" value="Yes!" />
+          <p>I read the book.</p>
+        </div>
+        <p id="numberValidation"></p>
+        <p id="requiredValidation"></p>
+        <p id="inputValidation"></p>
+        <input id="submit" type="submit" value="Submit" />
+      </form>
+      <div id="card-content"></div>
+    </div>
+    <footer>
+      <div class="footer">
+        <p>
+          Made by&nbsp;<a href="https://github.com/amandahom"
+            >Amanda Hom<img src="https://image.flaticon.com/icons/png/512/25/25231.png" width="30px"
+          /></a>
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
