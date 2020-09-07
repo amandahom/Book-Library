@@ -1,4 +1,4 @@
-; (function () {
+;(function() {
   let myLibrary = []
   console.log(myLibrary)
 
@@ -8,10 +8,8 @@
       title,
       author,
       rating,
-      read
+      read,
     }
-
-
   }
 
   // Function to add book to array
@@ -22,19 +20,18 @@
 
   // Render Function
   function render() {
-
     // Deleting everything before we render any new items. To avoid duplicates.
     let myNode = document.getElementById('card-content')
     myNode.innerHTML = ''
 
-    myLibrary.forEach(function (book) {
+    myLibrary.forEach(function(book) {
       const newBook = document.createElement('div')
       newBook.setAttribute('class', 'book')
 
       const title = document.createElement('div')
       title.setAttribute('class', 'bookTitle')
       title.textContent = 'Title: ' + book.title
-      let key = book.title.toLowerCase().replace(/ /g, '_')
+      let key = getIdFromBookTitle(book)
 
       const author = document.createElement('div')
       author.setAttribute('class', 'description')
@@ -66,41 +63,50 @@
 
       let removeButton = document.createElement('button')
       removeButton.setAttribute('class', 'delete')
-      removeButton.textContent = 'delete'
+      removeButton.textContent = 'Delete Book'
       mainCard.appendChild(removeButton)
       removeButton.addEventListener('click', removeBook)
 
-      read.addEventListener('click', e => changeRead(e, key))
+      read.addEventListener('click', changeRead)
     })
     hideForm()
   }
 
   // Function to delete book from array
-  function removeBook() {
-    let key = document.parentElement
-    console.log({ key })
-    myLibrary.splice(key, 1)
-    console.log('remove')
+  function removeBook(e) {
+    myLibrary = myLibrary.filter(function(book) {
+      return getIdFromElement(e) !== getIdFromBookTitle(book)
+    })
     render()
   }
 
   // Change Read Status
-  function changeRead(key) {
-    if (myLibrary[key].read) {
-      myLibrary[key] = false
-      e.target.textContent = 'Not Read'
-    } else {
-      myLibrary[key].read = true
-      e.target.textContent = 'Read'
-    }
+  function changeRead(e) {
+    myLibrary = myLibrary.map(function(book) {
+      if (getIdFromElement(e) == getIdFromBookTitle(book)) {
+        book.read = !book.read
+      }
+      return book
+    })
+    render()
   }
 
-  // Validation for Form
+  // Get Id from specific element
+  function getIdFromElement(e) {
+    return e.path[2].id
+  }
+
+  // Get Id from Book Title
+  function getIdFromBookTitle(book) {
+    return book.title.toLowerCase().replace(/ /g, '_')
+  }
+
+  // Form Validation
   function validation() {
     document.addEventListener(
       'invalid',
-      (function () {
-        return function (e) {
+      (function() {
+        return function(e) {
           e.preventDefault()
         }
       })(),
@@ -109,8 +115,8 @@
     let text
     let titleResponse = document.getElementById('text-title').value
     let authorResponse = document.getElementById('text-author').value
-    let readResponse = document.getElementById('text-read').value
     let numResponse = document.getElementById('text-rating').value
+    let readResponse = document.getElementById('text-read').value
     if (titleResponse == '' || authorResponse == '' || readResponse == '' || numResponse == '') {
       text = 'Field is required.'
       document.getElementById('requiredValidation').innerHTML = text
@@ -131,29 +137,39 @@
     let title = document.getElementById('text-title').value
     let author = document.getElementById('text-author').value
     let rating = document.getElementById('text-rating').value
-    let read = document.getElementById('text-read').value
-    addBook(title, author, read, rating)
+    let read = document.getElementById('text-read').checked
+    addBook(title, author, rating, read)
     render()
   }
 
   // Function to display form
   function displayForm() {
-    // @TODO Ensure you clear out the items from the previous
     let modal = document.getElementById('modal')
-
     if (modal.style.display === 'none') {
+      modal.style.display = 'block'
+    } else {
+      modal.style.display = 'none'
       document.getElementById('text-title').value = ''
       document.getElementById('text-author').value = ''
       document.getElementById('text-rating').value = ''
       document.getElementById('text-read').checked = false
+      document.getElementById('requiredValidation').innerHTML = ''
+      document.getElementById('numberValidation').innerHTML = ''
+      document.getElementById('inputValidation').innerHTML = ''
     }
-    modal.style.display = modal.style.display === 'none' ? 'block' : 'none'
   }
 
   //Hide form when close is clicked
   function hideForm() {
     let modal = document.getElementById('modal')
     modal.style.display = 'none'
+    document.getElementById('text-title').value = ''
+    document.getElementById('text-author').value = ''
+    document.getElementById('text-rating').value = ''
+    document.getElementById('text-read').checked = false
+    document.getElementById('requiredValidation').innerHTML = ''
+    document.getElementById('numberValidation').innerHTML = ''
+    document.getElementById('inputValidation').innerHTML = ''
   }
 
   // Load default books
@@ -170,11 +186,9 @@
     newBook.addEventListener('click', displayForm)
 
     let newBookForm = document.getElementById('modal')
-    newBookForm.addEventListener('submit', function (e) {
+    newBookForm.addEventListener('submit', function(e) {
       e.preventDefault()
-      console.log("Stop form submition...")
     })
-
 
     let bookSubmit = document.getElementById('submit')
     bookSubmit.addEventListener('click', validation)
@@ -185,7 +199,7 @@
     defaultBooks()
     render()
   }
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     main()
   })
 })()
