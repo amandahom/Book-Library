@@ -65,7 +65,7 @@
       removeButton.setAttribute('class', 'delete')
       removeButton.textContent = 'Delete Book'
       mainCard.appendChild(removeButton)
-      removeButton.addEventListener('click', removeBook)
+      removeButton.addEventListener('click', removeBook) 
 
       read.addEventListener('click', changeRead)
     })
@@ -93,9 +93,21 @@
 
   // Get Id from specific element
   function getIdFromElement(e) {
-    return e.path[2].id
+    if (e.path) {
+      if (e.composedPath) {
+        // console.log("Supports `path` and `composedPath`");
+        return e.path[2].id
+      } else {
+        // console.log("Supports `path` but not `composedPath`");
+      }
+    } else if (e.composedPath) {
+      // console.log("Supports `composedPath` (but not `path`)");
+      return e.target.parentNode.parentNode.id
+    } else {
+      // console.log("Supports neither `path` nor `composedPath`");
+    }
   }
-
+ 
   // Get Id from Book Title
   function getIdFromBookTitle(book) {
     return book.title.toLowerCase().replace(/ /g, '_')
