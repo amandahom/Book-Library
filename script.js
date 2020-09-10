@@ -1,6 +1,5 @@
 ;(function() {
   let myLibrary = []
-  console.log(myLibrary)
 
   // Function Objects - Constructor
   function Book(title, author, rating, read) {
@@ -20,7 +19,7 @@
 
   // Render Function
   function render() {
-    // Deleting everything before we render any new items. To avoid duplicates.
+    // Deleting everything before render any new items. To avoid duplicates.
     let myNode = document.getElementById('card-content')
     myNode.innerHTML = ''
 
@@ -65,7 +64,7 @@
       removeButton.setAttribute('class', 'delete')
       removeButton.textContent = 'Delete Book'
       mainCard.appendChild(removeButton)
-      removeButton.addEventListener('click', removeBook) 
+      removeButton.addEventListener('click', removeBook)
 
       read.addEventListener('click', changeRead)
     })
@@ -77,6 +76,7 @@
     myLibrary = myLibrary.filter(function(book) {
       return getIdFromElement(e) !== getIdFromBookTitle(book)
     })
+    saveLocalStorage()
     render()
   }
 
@@ -88,6 +88,7 @@
       }
       return book
     })
+    saveLocalStorage()
     render()
   }
 
@@ -107,7 +108,7 @@
       // console.log("Supports neither `path` nor `composedPath`");
     }
   }
- 
+
   // Get Id from Book Title
   function getIdFromBookTitle(book) {
     return book.title.toLowerCase().replace(/ /g, '_')
@@ -140,7 +141,6 @@
       document.getElementById('inputValidation').innerHTML = text
     } else {
       submitBook()
-      console.log('submitting')
     }
   }
 
@@ -151,6 +151,7 @@
     let rating = document.getElementById('text-rating').value
     let read = document.getElementById('text-read').checked
     addBook(title, author, rating, read)
+    saveLocalStorage()
     render()
   }
 
@@ -184,12 +185,24 @@
     document.getElementById('inputValidation').innerHTML = ''
   }
 
-  // Load default books
-  function defaultBooks() {
-    let book1 = Book('Harry Potter and the Goblet of Fire', 'J. K. Rowling', '10', true)
-    let book2 = Book('East of Eden', 'John Steinbeck', '8', false)
-    let book3 = Book('The Lightning Thief', 'Rick Riordan', '9', false)
-    myLibrary.push(book1, book2, book3)
+  // Save library to local storage
+  function saveLocalStorage() {
+    localStorage.setItem('library', JSON.stringify(myLibrary))
+  }
+
+  // Get local storage
+  function getLocalStorage() {
+    if (localStorage.getItem('library')) {
+      myLibrary = JSON.parse(localStorage.getItem('library'))
+      render()
+    } else {
+      let book1 = Book('Harry Potter and the Goblet of Fire', 'J. K. Rowling', '10', true)
+      let book2 = Book('East of Eden', 'John Steinbeck', '8', false)
+      let book3 = Book('The Lightning Thief', 'Rick Riordan', '9', false)
+      myLibrary.push(book1, book2, book3)
+      render()
+      saveLocalStorage()
+    }
   }
 
   // Document's Main Function
@@ -208,8 +221,8 @@
     let closeForm = document.getElementById('close')
     closeForm.addEventListener('click', hideForm)
 
-    defaultBooks()
     render()
+    getLocalStorage()
   }
   document.addEventListener('DOMContentLoaded', function() {
     main()
